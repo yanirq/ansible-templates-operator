@@ -2,4 +2,4 @@
 - version: v1
   group: template.openshift.io
   kind: Template
-  role: /opt/ansible/roles/Template
+  playbook: /opt/ansible/playbook.yaml

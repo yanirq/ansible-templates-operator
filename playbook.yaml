@@ -1,0 +1,9 @@
+---
+- connection: local
+  hosts: 127.0.0.1
+  tasks:
+  - debug:
+      msg: "Current template being processed: {{ meta.name }} in namespace {{ meta.namespace }}"
+  - name: Fetch vms with label selector
+    set_fact:
+      vms: "{{ lookup('k8s', kind='VirtualMachine', label_selector='vm.cnv.io/template={{ meta.name }}') }}"
