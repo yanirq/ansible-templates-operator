@@ -1,9 +1,18 @@
 ---
 - connection: local
-  hosts: 127.0.0.1
+  hosts: localhost
+  gather_facts: no
   tasks:
-  - debug:
+  - import_role:
+      name: "Template"
+  - debug:    
       msg: "Current template being processed: {{ meta.name }} in namespace {{ meta.namespace }}"
+  - debug:
+      var: vm_facts 
   - name: Fetch vms with label selector
     set_fact:
-      vms: "{{ lookup('k8s', kind='VirtualMachine', label_selector='vm.cnv.io/template={{ meta.name }}') }}"
+      vms: "{{ lookup('k8s', kind='VirtualMachine', api_version='kubevirt.io/v1alpha2', label_selector='vm.cnv.io/template=' + meta.name) }}"
+    ignore_errors: true
+  - debug:
+      var: vms   
+
