@@ -4,15 +4,10 @@
   gather_facts: no
   tasks:
   - import_role:
-      name: "Template"
+      name: "Template"   
   - debug:    
-      msg: "Current template being processed: {{ meta.name }} in namespace {{ meta.namespace }}"
-  - debug:
-      var: vm_facts 
+      msg: "Current template being processed: {{ meta.name }} in namespace {{ meta.namespace }}"      
   - name: Fetch vms with label selector
     set_fact:
       vms: "{{ lookup('k8s', kind='VirtualMachine', api_version='kubevirt.io/v1alpha2', label_selector='vm.cnv.io/template=' + meta.name) }}"
-    ignore_errors: true
-  - debug:
-      var: vms   
 
