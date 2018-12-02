@@ -109,8 +109,8 @@ kubevirtci/os-3.11...          ...,0.0.0.0:32770->5000/tcp,...
 
 To build the ansible-templates-operator image and push it to the Openshift/KubeVirt registry:
 ```
-$ operator-sdk build localhost:32770/templates-ansible-operator:v0.0.1
-$ docker push localhost:32770/templates-ansible-operator:v0.0.1
+$ operator-sdk build localhost:32770/templates-ansible-operator:devel
+$ docker push localhost:32770/templates-ansible-operator:devel
 ```
 
 Create the deployment files:
