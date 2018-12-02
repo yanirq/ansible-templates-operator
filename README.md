@@ -122,6 +122,12 @@ $ kubectl create -f deploy/role_binding.yaml
 $ kubectl create -f deploy/operator.yaml
 ```
 
+Add cluster-admin role to the operator service account:
+
+```
+$kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole=cluster-admin --user=system:serviceaccount:default:templates-ansible-operator
+```
+
 Verify that the ansible-templates-operator is up and running:
 
 ```
@@ -134,6 +140,4 @@ templates-ansible-operator   1         1         1            1           1m
 ## Caveats & Gotchas
 - The operator will currently watch all forms of Openshift Templates in the cluster (even if they are not VM templates)
 There might be a need to restrict the [operator scope](https://github.com/operator-framework/operator-sdk/blob/master/doc/ansible/user-guide.md#operator-scope) to watch only VM templates.
-- Running the operator on the cluster does not work at the moment.
-The operator pod seems to come up correctly and start watching the resource, but doesn't detect any change. [WIP]
 - Template delete events do not invoke playbook.
